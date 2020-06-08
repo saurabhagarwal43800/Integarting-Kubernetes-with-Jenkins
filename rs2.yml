@@ -3,19 +3,20 @@ kind: ReplicaSet
 metadata:
     name: myweb-rs
 spec:
-    replicas: 2
+    replicas: 3
     selector:
+        matchLabels:
+            env: production
+# matchLabels is another way to write labels instead of matchExpressions
 #       matchExpressions:
 #       - {key: env, operator: In, values: [production]}
 #       - {key: region, operator: In, values: [IN]}
     template:
         metadata:
-            name: myweb-pod2
+            name: myweb-pod
             labels:
                env: production
-               region: IN
-               dc: "2"
         spec:
             containers:
             - name: myweb-con
-              image: httpd
+              image: vimal13/apache-webserver-php
